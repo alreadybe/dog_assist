@@ -12,13 +12,14 @@ class HeaderBar extends StatelessWidget {
     return AppBar(
       leading: Leading(needBack),
       actions: <Widget>[
-        Container(
-            child: IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            Navigator.pushNamed(context, '/settings');
-          },
-        )),
+        if (routeTitle != 'Setting')
+          Container(
+              child: IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+          )),
       ],
       title: Text(routeTitle,
           style: GoogleFonts.poiretOne(
