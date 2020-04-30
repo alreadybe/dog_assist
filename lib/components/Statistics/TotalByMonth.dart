@@ -19,7 +19,7 @@ class TotalByMonthState extends State<TotalByMonth> {
 
   @override
   void initState() {
-    open = true;
+    open = false;
     print('initialse');
     super.initState();
   }
@@ -78,7 +78,7 @@ class TotalByMonthState extends State<TotalByMonth> {
               Container(
                 child: IconButton(
                   icon: Icon(
-                    Icons.arrow_drop_down,
+                    open ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                     color: Colors.white,
                     size: 32,
                   ),
