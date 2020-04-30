@@ -13,7 +13,9 @@ Future<File> _localFile(entity) async {
   final file = File('$path/$entity.json');
   if (!await file.exists()) {
     await file.create(recursive: true);
+    await file.writeAsString(jsonEncode([]));
   }
+
   return file;
 }
 

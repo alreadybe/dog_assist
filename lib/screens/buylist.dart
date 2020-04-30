@@ -14,7 +14,6 @@ class BuyList extends StatefulWidget {
 
 class _BuyListState extends State<BuyList> {
   double currentMonthTotal = 0;
-  double lastMonthTotal = 0;
   String category = 'Other';
 
   String inputField;
@@ -23,7 +22,6 @@ class _BuyListState extends State<BuyList> {
 
   @override
   void initState() {
-    getTotal();
     inputField = '0';
     super.initState();
   }
@@ -31,7 +29,7 @@ class _BuyListState extends State<BuyList> {
   Container goToStatistics() {
     return Container(
         alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(top: 5),
+        margin: EdgeInsets.only(top: 5, right: 10),
         child: IconButton(
             icon: Icon(
               Icons.equalizer,
@@ -149,8 +147,7 @@ class _BuyListState extends State<BuyList> {
           };
           writeData(data, 'spends');
           setState(() {
-            currentMonthTotal = currentMonthTotal + double.parse(inputField);
-            inputField = '';
+            inputField = '0';
           });
         });
       },
@@ -198,27 +195,6 @@ class _BuyListState extends State<BuyList> {
         },
       ),
     );
-  }
-
-  getTotal() async {
-    var data = await readData('spends');
-
-    double currentCount = 0;
-    double lastCount = 0;
-
-    int currentMonth = DateTime.now().month;
-    data.forEach((obj) {
-      if (DateTime.parse(obj['time']).month == currentMonth) {
-        currentCount = currentCount + double.parse(obj['count']);
-      }
-      if (DateTime.parse(obj['time']).month == currentMonth - 1) {
-        lastCount = lastCount + double.parse(obj['count']);
-      }
-    });
-    setState(() {
-      currentMonthTotal = currentCount;
-      lastMonthTotal = lastCount;
-    });
   }
 
   @override
