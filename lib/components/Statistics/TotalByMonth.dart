@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../generated/l10n.dart';
+
 class TotalByMonth extends StatefulWidget {
   final monthData;
 
@@ -43,7 +45,7 @@ class TotalByMonthState extends State<TotalByMonth> {
       ),
       margin: const EdgeInsets.only(left: 30, right: 50, bottom: 10, top: 20),
       padding: const EdgeInsets.all(10),
-      height: open ? 280 : 80,
+      height: open ? 285 : 80,
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
@@ -58,7 +60,9 @@ class TotalByMonthState extends State<TotalByMonth> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("$name:",
+                  Text(
+                      "$name:".replaceRange(
+                          0, 1, name.toString().substring(0, 1).toUpperCase()),
                       style: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               color: Colors.white,
@@ -91,37 +95,44 @@ class TotalByMonthState extends State<TotalByMonth> {
               )
             ],
           ),
-          if (open) extendData(monthData),
+          if (open) ExtendData(monthData),
         ],
       ),
     );
   }
 }
 
-Container extendData(data) {
-  var eat = data['eat'].toString();
-  var toys = data['toys'].toString();
-  var train = data['train'].toString();
-  var health = data['health'].toString();
-  var hygiene = data['hygiene'].toString();
-  var other = data['other'].toString();
+class ExtendData extends StatelessWidget {
+  final data;
 
-  return Container(
-    alignment: Alignment.centerLeft,
-    height: 200,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        dataItem('Eat', eat, Icons.restaurant),
-        dataItem('Toys', toys, Icons.toys),
-        dataItem('Training', train, Icons.school),
-        dataItem('Health', health, Icons.local_hospital),
-        dataItem('Hygiene', hygiene, Icons.pool),
-        dataItem('Other', other, Icons.blur_on),
-      ],
-    ),
-  );
+  ExtendData(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    var eat = data['eat'].toString();
+    var toys = data['toys'].toString();
+    var train = data['train'].toString();
+    var health = data['health'].toString();
+    var hygiene = data['hygiene'].toString();
+    var other = data['other'].toString();
+    return Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(top: 5),
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          dataItem(S.of(context).eat, eat, Icons.restaurant),
+          dataItem(S.of(context).toys, toys, Icons.toys),
+          dataItem(S.of(context).train, train, Icons.school),
+          dataItem(S.of(context).health, health, Icons.local_hospital),
+          dataItem(S.of(context).hygiene, hygiene, Icons.pool),
+          dataItem(S.of(context).other, other, Icons.blur_on),
+        ],
+      ),
+    );
+  }
 }
 
 Row dataItem(name, total, icon) {

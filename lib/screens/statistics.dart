@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../utils/localstore.dart';
+import '../generated/l10n.dart';
 
 import '../components/HeaderBar.dart';
 
@@ -42,22 +43,22 @@ class _StatisticsState extends State<Statistics> {
     monthData.forEach((item) {
       total = total + double.parse(item['count']);
       switch (item['category']) {
-        case 'Eat':
+        case 'eat':
           eat = eat + double.parse(item['count']);
           break;
-        case 'Toys':
+        case 'toys':
           toys = toys + double.parse(item['count']);
           break;
-        case 'Training':
+        case 'train':
           train = train + double.parse(item['count']);
           break;
-        case 'Health':
+        case 'health':
           health = health + double.parse(item['count']);
           break;
-        case 'Hygiene':
+        case 'hygiene':
           hygiene = hygiene + double.parse(item['count']);
           break;
-        case 'Other':
+        case 'other':
           other = other + double.parse(item['count']);
           break;
       }
@@ -106,7 +107,7 @@ class _StatisticsState extends State<Statistics> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar('Statistics', true),
+                child: HeaderBar(S.of(context).statistics, true, false),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: ListView.builder(

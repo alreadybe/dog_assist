@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'generated/l10n.dart';
+
+import 'components/HeaderBar.dart';
+
 import './components/HomePage/AppBody.dart';
 import './components/HomePage/BottomBar.dart';
 
@@ -30,19 +34,32 @@ class HomePage extends StatelessWidget {
           '/statistics': (context) => Statistics(),
           '/settings': (context) => Settings(),
         },
-        home: Container(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('images/background.jpg'),
-                  fit: BoxFit.cover)),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: PreferredSize(
-                child: HeaderBar('Lucky Dog', false),
-                preferredSize: Size(double.infinity, kToolbarHeight)),
-            body: AppBody(),
-            bottomNavigationBar: BottomBar(),
-          ),
-        ));
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        home: Home());
+  }
+}
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('images/background.jpg'), fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: PreferredSize(
+            child: HeaderBar(S.of(context).title, false, true),
+            preferredSize: Size(double.infinity, kToolbarHeight)),
+        body: AppBody(),
+        bottomNavigationBar: BottomBar(),
+      ),
+    );
   }
 }

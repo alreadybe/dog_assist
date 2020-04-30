@@ -4,15 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 class HeaderBar extends StatelessWidget {
   final String routeTitle;
   final bool needBack;
+  final bool settings;
 
-  HeaderBar(this.routeTitle, this.needBack);
+  HeaderBar(this.routeTitle, this.needBack, this.settings);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: Leading(needBack),
       actions: <Widget>[
-        if (routeTitle != 'Setting')
+        if (settings)
           Container(
               child: IconButton(
             icon: Icon(Icons.settings),

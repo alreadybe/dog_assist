@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/localstore.dart';
+import '../generated/l10n.dart';
 
 import '../components/HeaderBar.dart';
 
@@ -41,7 +42,8 @@ class _BuyListState extends State<BuyList> {
             }));
   }
 
-  Container selectCategory() {
+  Container selectCategory(cxt) {
+    BuildContext context = cxt;
     return Container(
       margin: EdgeInsets.only(bottom: 5),
       child: SizedBox(
@@ -50,22 +52,22 @@ class _BuyListState extends State<BuyList> {
           physics: BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            categoryButton('Eat', Icons.restaurant),
-            categoryButton('Toys', Icons.toys),
-            categoryButton('Training', Icons.school),
-            categoryButton('Health', Icons.local_hospital),
-            categoryButton('Hygiene', Icons.pool),
-            categoryButton('Other', Icons.blur_on),
+            categoryButton(S.of(context).eat, 'eat', Icons.restaurant),
+            categoryButton(S.of(context).toys, 'toys', Icons.toys),
+            categoryButton(S.of(context).train, 'train', Icons.school),
+            categoryButton(
+                S.of(context).health, 'health', Icons.local_hospital),
+            categoryButton(S.of(context).hygiene, 'hygiene', Icons.pool),
+            categoryButton(S.of(context).other, 'other', Icons.blur_on),
           ],
         ),
       ),
     );
   }
 
-  Container categoryButton(name, icon) {
+  Container categoryButton(name, cat, icon) {
     return Container(
-      width: 100,
-      margin: EdgeInsets.symmetric(horizontal: 2),
+      width: 125,
       child: RaisedButton(
         color: Colors.transparent,
         elevation: 0,
@@ -74,7 +76,7 @@ class _BuyListState extends State<BuyList> {
           children: <Widget>[
             Icon(
               icon,
-              color: name == category ? Colors.greenAccent : Colors.white,
+              color: cat == category ? Colors.greenAccent : Colors.white,
             ),
             Text(
               name,
@@ -82,14 +84,14 @@ class _BuyListState extends State<BuyList> {
                   textStyle: TextStyle(
                       color:
                           name == category ? Colors.greenAccent : Colors.white,
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w200)),
             ),
           ],
         ),
-        onPressed: () {
+        onPressed: () async {
           setState(() {
-            category = name;
+            category = cat;
           });
         },
       ),
@@ -206,7 +208,7 @@ class _BuyListState extends State<BuyList> {
         child: Scaffold(
           backgroundColor: Colors.black38,
           appBar: PreferredSize(
-              child: HeaderBar('Purchases', true),
+              child: HeaderBar(S.of(context).purchases, true, false),
               preferredSize: Size(double.infinity, kToolbarHeight)),
           body: Container(
               child: Column(
@@ -214,7 +216,7 @@ class _BuyListState extends State<BuyList> {
                   children: <Widget>[
                 goToStatistics(),
                 sumField(inputField),
-                selectCategory(),
+                selectCategory(context),
                 Container(
                     alignment: Alignment.bottomCenter,
                     height: 320,
