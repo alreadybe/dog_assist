@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/Calendar/CalendarBody.dart';
+
 import '../generated/l10n.dart';
 
 import '../components/HeaderBar.dart';
@@ -24,7 +26,16 @@ class _CalendarState extends State<Calendar> {
                 child: HeaderBar(S.of(context).calendar, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
-              child: Text('Calendar'),
+              margin: EdgeInsets.only(top: 140),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[CalendarBody(31)],
+                  ),
+                ],
+              ),
             )));
   }
 }
