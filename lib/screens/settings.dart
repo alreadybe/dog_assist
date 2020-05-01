@@ -22,6 +22,18 @@ class _SettingsState extends State<Settings> {
     prefs.setString('local', value);
   }
 
+  getInitialLocal(context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String defaulLocal = Localizations.localeOf(context).toString();
+
+    String savedLocal = prefs.getString('local') ?? defaulLocal;
+
+    setState(() {
+      if (savedLocal == 'ru') currentLocale = "Русский";
+      if (savedLocal == 'en') currentLocale = "English";
+    });
+  }
+
   getValueLocal(value) {
     if (value == 'ru') return "Русский";
     if (value == 'en') return "English";
@@ -35,11 +47,9 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    String defaulLocal = Localizations.localeOf(context).toString();
-
     if (initLocal) {
       setState(() {
-        currentLocale = getValueLocal(defaulLocal);
+        getInitialLocal(context);
         initLocal = false;
       });
     }
@@ -51,13 +61,13 @@ class _SettingsState extends State<Settings> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).settings, true, false),
+                child: HeaderBar(S.of(context).settings, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 10, left: 10),
+                    margin: EdgeInsets.only(top: 30, left: 15, right: 10),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +88,7 @@ class _SettingsState extends State<Settings> {
                                   style: GoogleFonts.rubik(
                                       textStyle: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 22,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.w600))),
                               PopupMenuButton(
                                 onSelected: (value) async {

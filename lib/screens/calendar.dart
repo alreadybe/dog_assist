@@ -21,7 +21,7 @@ class _CalendarState extends State<Calendar> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).calendar, true, false),
+                child: HeaderBar(S.of(context).calendar, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Text('Calendar'),

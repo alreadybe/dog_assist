@@ -21,7 +21,7 @@ class _TrainingState extends State<Training> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).training, true, false),
+                child: HeaderBar(S.of(context).training, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Text('Training'),

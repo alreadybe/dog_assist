@@ -21,7 +21,7 @@ class _NotesState extends State<Notes> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).notes, true, false),
+                child: HeaderBar(S.of(context).notes, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Text('Notes'),

@@ -107,7 +107,7 @@ class _StatisticsState extends State<Statistics> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).statistics, true, false),
+                child: HeaderBar(S.of(context).statistics, true, false, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: ListView.builder(
