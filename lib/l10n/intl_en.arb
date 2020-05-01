@@ -8,5 +8,10 @@
     "train": "Trainning",
     "health": "Health",
     "hygiene": "Hygiene",
-    "other": "Other"
+    "other": "Other",
+    "changeLang": "Change language",
+    "ru": "Русский",
+    "en": "English",
+    "setBack": "Set background image",
+    "test": "Feed dog at 14:30"
 }

@@ -21,13 +21,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "changeLang" : MessageLookupByLibrary.simpleMessage("Выбор языка"),
     "eat" : MessageLookupByLibrary.simpleMessage("Питание"),
+    "en" : MessageLookupByLibrary.simpleMessage("English"),
     "health" : MessageLookupByLibrary.simpleMessage("Здоровье"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Гигиена"),
     "other" : MessageLookupByLibrary.simpleMessage("Остальное"),
     "purchases" : MessageLookupByLibrary.simpleMessage("Расходы"),
+    "ru" : MessageLookupByLibrary.simpleMessage("Русский"),
+    "setBack" : MessageLookupByLibrary.simpleMessage("Установить фон"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "statistics" : MessageLookupByLibrary.simpleMessage("Статистика"),
+    "test" : MessageLookupByLibrary.simpleMessage("Покормить собаку в 14:30"),
     "title" : MessageLookupByLibrary.simpleMessage("Lucky Dog"),
     "toys" : MessageLookupByLibrary.simpleMessage("Игрушки"),
     "train" : MessageLookupByLibrary.simpleMessage("Тренировки")

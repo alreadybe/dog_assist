@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../generated/l10n.dart';
+
 class AppBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,24 +26,21 @@ class CalendarFeedWidget extends StatelessWidget {
         padding: EdgeInsets.all(10),
         height: 90,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Icon(
               Icons.restaurant_menu,
               size: 32,
               color: Colors.green,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text('Feed dog at 14:30',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w200))),
-            ),
+            Text(S.of(context).test,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w200))),
             Container(
-              padding: EdgeInsets.only(left: 70),
               child: Icon(
                 Icons.notifications,
                 size: 34,

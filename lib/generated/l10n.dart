@@ -116,6 +116,51 @@ class S {
       args: [],
     );
   }
+
+  String get changeLang {
+    return Intl.message(
+      'Change language',
+      name: 'changeLang',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get ru {
+    return Intl.message(
+      'Русский',
+      name: 'ru',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get en {
+    return Intl.message(
+      'English',
+      name: 'en',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get setBack {
+    return Intl.message(
+      'Set background image',
+      name: 'setBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get test {
+    return Intl.message(
+      'Feed dog at 14:30',
+      name: 'test',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

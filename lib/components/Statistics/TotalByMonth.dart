@@ -22,7 +22,6 @@ class TotalByMonthState extends State<TotalByMonth> {
   @override
   void initState() {
     open = false;
-    print('initialse');
     super.initState();
   }
 

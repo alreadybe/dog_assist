@@ -33,7 +33,9 @@ dependencies:
   cloud_firestore: ^0.12.9+5
 
   google_fonts: ^1.0.0
+  
   path_provider: ^1.6.7
+  shared_preferences: ^0.5.7
 
   intl: ^0.16.1
   intl_translation: ^0.17.10
