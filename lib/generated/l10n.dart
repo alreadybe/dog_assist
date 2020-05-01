@@ -153,6 +153,42 @@ class S {
     );
   }
 
+  String get calendar {
+    return Intl.message(
+      'Calendar',
+      name: 'calendar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get notes {
+    return Intl.message(
+      'Notes',
+      name: 'notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get training {
+    return Intl.message(
+      'Training',
+      name: 'training',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get test {
     return Intl.message(
       'Feed dog at 14:30',

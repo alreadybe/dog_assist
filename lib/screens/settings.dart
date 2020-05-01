@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../generated/l10n.dart';
 
@@ -16,7 +17,12 @@ class _SettingsState extends State<Settings> {
   bool initLocal = false;
   String currentLocale = '';
 
-  String getValueLocal(value) {
+  setInitialLocal(value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('local', value);
+  }
+
+  getValueLocal(value) {
     if (value == 'ru') return "Русский";
     if (value == 'en') return "English";
   }
@@ -77,6 +83,7 @@ class _SettingsState extends State<Settings> {
                               PopupMenuButton(
                                 onSelected: (value) async {
                                   await S.load(Locale(value));
+                                  setInitialLocal(value);
                                   setState(() {
                                     currentLocale = getValueLocal(value);
                                   });
