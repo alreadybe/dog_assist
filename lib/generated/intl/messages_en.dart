@@ -23,10 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "calendar" : MessageLookupByLibrary.simpleMessage("Calendar"),
     "changeLang" : MessageLookupByLibrary.simpleMessage("Change language"),
+    "dhandler" : MessageLookupByLibrary.simpleMessage("Dog Handler"),
     "eat" : MessageLookupByLibrary.simpleMessage("Nutrition"),
     "en" : MessageLookupByLibrary.simpleMessage("English"),
+    "fight" : MessageLookupByLibrary.simpleMessage("Fight"),
     "health" : MessageLookupByLibrary.simpleMessage("Health"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Hygiene"),
+    "mating" : MessageLookupByLibrary.simpleMessage("Mating"),
+    "measuring" : MessageLookupByLibrary.simpleMessage("Measuring"),
     "notes" : MessageLookupByLibrary.simpleMessage("Notes"),
     "other" : MessageLookupByLibrary.simpleMessage("Other"),
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
@@ -39,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "title" : MessageLookupByLibrary.simpleMessage("Lucky Dog"),
     "toys" : MessageLookupByLibrary.simpleMessage("Toys"),
     "train" : MessageLookupByLibrary.simpleMessage("Trainning"),
-    "training" : MessageLookupByLibrary.simpleMessage("Training")
+    "training" : MessageLookupByLibrary.simpleMessage("Training"),
+    "vet" : MessageLookupByLibrary.simpleMessage("Vet")
   };
 }

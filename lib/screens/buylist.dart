@@ -89,7 +89,7 @@ class _BuyListState extends State<BuyList> {
             ),
           ],
         ),
-        onPressed: () async {
+        onPressed: () {
           setState(() {
             category = cat;
           });

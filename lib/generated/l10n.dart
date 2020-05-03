@@ -10,26 +10,21 @@ import 'intl/messages_all.dart';
 
 class S {
   S();
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final String name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final String name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
     final String localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       return S();
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     return Localizations.of<S>(context, S);
-  }
-
-  String get currentLocal {
-    return Intl.getCurrentLocale();
   }
 
   String get title {
@@ -189,6 +184,51 @@ class S {
     return Intl.message(
       'Training',
       name: 'training',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get measuring {
+    return Intl.message(
+      'Measuring',
+      name: 'measuring',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get mating {
+    return Intl.message(
+      'Mating',
+      name: 'mating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get vet {
+    return Intl.message(
+      'Vet',
+      name: 'vet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get fight {
+    return Intl.message(
+      'Fight',
+      name: 'fight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get dhandler {
+    return Intl.message(
+      'Dog Handler',
+      name: 'dhandler',
       desc: '',
       args: [],
     );
