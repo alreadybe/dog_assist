@@ -22,5 +22,7 @@
     "vet": "Vet",
     "fight": "Fight",
     "dhandler": "Dog Handler",
+    "enterEventName": "Event name",
+    "enterEventNote": "Event description",
     "test": "Feed dog at 14:30"
 }

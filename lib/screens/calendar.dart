@@ -110,10 +110,13 @@ class CalendarState extends State<Calendar> {
     print(currentMonth);
     print(currentYear);
 
-    if (eventName.length > 0) {
+    if (eventName != null && eventName.length > 0 || filter != 'other') {
       setState(() {
         showModal = false;
         filter = '';
+
+        eventName = '';
+        eventNote = '';
       });
     }
   }

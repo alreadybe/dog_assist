@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "dhandler" : MessageLookupByLibrary.simpleMessage("Кинолог"),
     "eat" : MessageLookupByLibrary.simpleMessage("Питание"),
     "en" : MessageLookupByLibrary.simpleMessage("English"),
+    "enterEventName" : MessageLookupByLibrary.simpleMessage("Названия события"),
+    "enterEventNote" : MessageLookupByLibrary.simpleMessage("Описание события"),
     "fight" : MessageLookupByLibrary.simpleMessage("Драка"),
     "health" : MessageLookupByLibrary.simpleMessage("Здоровье"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Гигиена"),

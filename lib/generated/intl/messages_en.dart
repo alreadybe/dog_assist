@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "dhandler" : MessageLookupByLibrary.simpleMessage("Dog Handler"),
     "eat" : MessageLookupByLibrary.simpleMessage("Nutrition"),
     "en" : MessageLookupByLibrary.simpleMessage("English"),
+    "enterEventName" : MessageLookupByLibrary.simpleMessage("Event name"),
+    "enterEventNote" : MessageLookupByLibrary.simpleMessage("Event description"),
     "fight" : MessageLookupByLibrary.simpleMessage("Fight"),
     "health" : MessageLookupByLibrary.simpleMessage("Health"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Hygiene"),

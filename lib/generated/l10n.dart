@@ -234,6 +234,24 @@ class S {
     );
   }
 
+  String get enterEventName {
+    return Intl.message(
+      'Event name',
+      name: 'enterEventName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get enterEventNote {
+    return Intl.message(
+      'Event description',
+      name: 'enterEventNote',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get test {
     return Intl.message(
       'Feed dog at 14:30',
