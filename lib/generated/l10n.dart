@@ -252,6 +252,15 @@ class S {
     );
   }
 
+  String get emptyNotes {
+    return Intl.message(
+      'No notes for today',
+      name: 'emptyNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get test {
     return Intl.message(
       'Feed dog at 14:30',

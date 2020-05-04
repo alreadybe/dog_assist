@@ -24,5 +24,6 @@
     "dhandler": "Dog Handler",
     "enterEventName": "Event name",
     "enterEventNote": "Event description",
+    "emptyNotes": "No notes for today",
     "test": "Feed dog at 14:30"
 }

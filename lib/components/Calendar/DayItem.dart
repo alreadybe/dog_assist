@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
-import '../../screens/calendar.dart';
-
 class DayItem extends StatelessWidget {
-  final CalendarState parent;
-
   final date;
   final step;
   final selectedDay;
 
-  DayItem(this.date, this.step, this.selectedDay, this.parent);
+  final selectDay;
+
+  DayItem(this.date, this.step, this.selectedDay, this.selectDay);
 
   double percentageToRadians(double percentage) =>
       ((2 * pi * percentage) / 100);
@@ -64,9 +62,7 @@ class DayItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           onPressed: () {
-            this.parent.setState(() {
-              this.parent.selectedDay = date['day'];
-            });
+            selectDay(day);
           },
         ),
       ),

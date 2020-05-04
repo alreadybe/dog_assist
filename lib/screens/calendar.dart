@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:date_util/date_util.dart';
 import 'package:intl/intl.dart';
 
+import '../utils/localstore.dart';
+
 import '../generated/l10n.dart';
 
 import '../components/HeaderBar.dart';
@@ -29,10 +31,14 @@ class CalendarState extends State<Calendar> {
   int currentYear;
 
   int selectedDay;
+  String currentDateString;
 
   String name;
   String filter;
   String filterName;
+
+  var events;
+  List currentEvents = [];
 
   var addActive;
 
@@ -44,6 +50,19 @@ class CalendarState extends State<Calendar> {
   var daysInMonth;
   var days;
   var step;
+
+  getData() async {
+    var fetchData = await readData('events') ?? [];
+    var todayEvents = fetchData
+        .where((event) =>
+            event['date'] == '$currentYear-$currentMonth-$selectedDay')
+        .toList();
+
+    setState(() {
+      events = fetchData;
+      currentEvents = todayEvents;
+    });
+  }
 
   getMonthData(date) {
     String monthName = DateFormat.MMMM().format(date);
@@ -77,6 +96,7 @@ class CalendarState extends State<Calendar> {
       currentYear = newDate.year;
     });
     getMonthData(newDate);
+    selectDay(selectedDay.toString());
   }
 
   prevMonth() {
@@ -86,6 +106,7 @@ class CalendarState extends State<Calendar> {
       currentYear = newDate.year;
     });
     getMonthData(newDate);
+    selectDay(selectedDay.toString());
   }
 
   setFilter(name, text) {
@@ -104,27 +125,51 @@ class CalendarState extends State<Calendar> {
   }
 
   addEvent() {
-    print(eventName);
-    print(eventNote);
-    print(selectedDay);
-    print(currentMonth);
-    print(currentYear);
-
     if (eventName != null && eventName.length > 0 || filter != 'other') {
+      String category = filter == 'other' ? eventName : filter;
+      var event = {
+        "category": category,
+        "note": eventNote,
+        "date": '$currentYear-$currentMonth-$selectedDay'
+      };
+
+      writeData(event, 'events');
+
       setState(() {
         showModal = false;
         filter = '';
 
         eventName = '';
         eventNote = '';
+
+        events.add(event);
+        currentEvents.add(event);
       });
     }
   }
 
+  selectDay(day) {
+    var month =
+        currentMonth.toString().length > 1 ? currentMonth : '0$currentMonth';
+    var parsedDay = day.toString().length > 1 ? day : '0$day';
+    DateTime currentFullDay =
+        DateTime.parse('$currentYear-$month-$parsedDay 02:00:00');
+    setState(() {
+      selectedDay = int.parse(day);
+      currentDateString = DateFormat.MMMEd().format(currentFullDay);
+    });
+
+    getData();
+  }
+
   @override
   void initState() {
+    getData();
+
     currentMonth = today.month;
     currentYear = today.year;
+
+    currentDateString = DateFormat.MMMEd().format(today);
 
     addActive = false;
     showModal = false;
@@ -196,11 +241,11 @@ class CalendarState extends State<Calendar> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 90),
+                        margin: EdgeInsets.only(top: 85),
                         child: Stack(children: <Widget>[
                           Container(
                             width: 380,
-                            height: 380,
+                            height: 382,
                             alignment: Alignment.center,
                             decoration: new BoxDecoration(
                               border: Border.all(
@@ -222,7 +267,7 @@ class CalendarState extends State<Calendar> {
                                   Container(
                                     margin: EdgeInsets.only(top: 30),
                                     child: Text(
-                                      'Sunday, 29 April',
+                                      '$currentDateString',
                                       style: GoogleFonts.rubik(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -231,27 +276,56 @@ class CalendarState extends State<Calendar> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 30,
+                                    height: 20,
                                   ),
                                   Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 15),
-                                    child: Text(
-                                      'Notes about this date sfasfasfka jfaphs fjasph ufahps ufahsp ufahpf uhspuiaf fief fiefj ifejfeifjqe ijfe',
-                                      style: GoogleFonts.rubik(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600)),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
+                                      width: 195,
+                                      height: 150,
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 15),
+                                      child: currentEvents.length > 0
+                                          ? ListView.builder(
+                                              physics: BouncingScrollPhysics(),
+                                              itemCount: currentEvents.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                          int index) =>
+                                                      _noteItem(
+                                                          currentEvents[index]
+                                                              ['category'],
+                                                          currentEvents[index]
+                                                              ['note'],
+                                                          context))
+                                          : Text(
+                                              S.of(context).emptyNotes,
+                                              style: GoogleFonts.rubik(
+                                                  textStyle: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              textAlign: TextAlign.center,
+                                            )),
+                                  currentEvents.length > 0
+                                      ? Container(
+                                          margin: EdgeInsets.only(top: 20),
+                                          child: Text(
+                                            currentEvents.length.toString(),
+                                            style: GoogleFonts.rubik(
+                                                textStyle: TextStyle(
+                                                    color: Colors.orange,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                          ),
+                                        )
+                                      : SizedBox(),
                                 ],
                               ),
                             ),
                           ),
                           for (var item in daysInMonth)
-                            DayItem(item, step, selectedDay, this)
+                            DayItem(item, step, selectedDay, selectDay)
                         ]),
                       )
                     ],
@@ -290,4 +364,57 @@ class CalendarState extends State<Calendar> {
               )),
         ));
   }
+}
+
+Container _noteItem(category, note, context) {
+  var name;
+  switch (category) {
+    case 'vet':
+      name = S.of(context).vet;
+      break;
+    case 'dhandler':
+      name = S.of(context).dhandler;
+      break;
+    case 'fight':
+      name = S.of(context).fight;
+      break;
+    case 'measuring':
+      name = S.of(context).measuring;
+      break;
+    case 'mating':
+      name = S.of(context).mating;
+      break;
+    case 'other':
+      name = category;
+      break;
+  }
+
+  return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      child: Column(
+        children: <Widget>[
+          note.length > 0
+              ? (Text(
+                  name,
+                  style: GoogleFonts.rubik(
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600)),
+                  textAlign: TextAlign.left,
+                ))
+              : SizedBox(
+                  height: 5,
+                ),
+          Text(
+            note.length > 0 ? note : name,
+            style: GoogleFonts.rubik(
+                textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600)),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ));
 }
