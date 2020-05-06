@@ -21,7 +21,7 @@ class _ProfileState extends State<Profile> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).profile, true, false, null),
+                child: HeaderBar(S.of(context).profile, true, null, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Text('Profile'),

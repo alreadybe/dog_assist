@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 import 'generated/l10n.dart';
+import './utils/localstore.dart';
 
 import 'components/HeaderBar.dart';
 
@@ -17,6 +18,7 @@ import './screens/profile.dart';
 import './screens/training.dart';
 import './screens/statistics.dart';
 import './screens/settings.dart';
+import './screens/fullYearCalendar.dart';
 
 void main() {
   runApp(HomePage());
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Lucky Dog',
+        title: 'Happy Dog',
         routes: {
           '/buylist': (context) => BuyList(),
           '/calendar': (context) => Calendar(),
@@ -35,6 +37,7 @@ class HomePage extends StatelessWidget {
           '/training': (context) => Training(),
           '/statistics': (context) => Statistics(),
           '/settings': (context) => Settings(),
+          '/fullyear': (context) => FullYearCalendar(),
         },
         localizationsDelegates: [
           S.delegate,
@@ -61,10 +64,32 @@ class _HomeState extends State<Home> {
 
   String defaulLocal = Intl.getCurrentLocale();
 
+  var soonEvents = [];
+
+  getData() async {
+    DateTime today = DateTime.now();
+    var fetchData = await readData('events') ?? [];
+
+    var events = fetchData
+            .where((event) =>
+                DateTime.parse(event["date"])
+                    .isBefore(today.add(Duration(hours: 24))) &&
+                DateTime.parse(event["date"])
+                    .isAfter(today.subtract(Duration(hours: 23))))
+            .toList() ??
+        [];
+
+    setState(() {
+      soonEvents = events;
+    });
+  }
+
   @override
   void initState() {
     loading = true;
     getLocale();
+
+    getData();
 
     super.initState();
   }
@@ -75,6 +100,11 @@ class _HomeState extends State<Home> {
     setState(() {
       refresh = lang;
     });
+  }
+
+  goToPage(context, path) async {
+    final refreshed = await Navigator.pushNamed(context, path);
+    if (refreshed) getData();
   }
 
   getLocale() async {
@@ -113,12 +143,12 @@ class _HomeState extends State<Home> {
           : Scaffold(
               backgroundColor: Colors.transparent,
               appBar: PreferredSize(
-                  child: HeaderBar(S.of(context).title, false, true, () {
+                  child: HeaderBar(S.of(context).title, false, 'setting', () {
                     _getLangFromSettings(context);
                   }),
                   preferredSize: Size(double.infinity, kToolbarHeight)),
-              body: AppBody(),
-              bottomNavigationBar: BottomBar(),
+              body: AppBody(soonEvents),
+              bottomNavigationBar: BottomBar(goToPage),
             ),
     );
   }

@@ -29,7 +29,7 @@ class S {
 
   String get title {
     return Intl.message(
-      'Lucky Dog',
+      'Happy Dog',
       name: 'title',
       desc: '',
       args: [],

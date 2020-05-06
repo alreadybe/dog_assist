@@ -43,7 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings" : MessageLookupByLibrary.simpleMessage("Setting"),
     "statistics" : MessageLookupByLibrary.simpleMessage("Statistic"),
     "test" : MessageLookupByLibrary.simpleMessage("Feed dog at 14:30"),
-    "title" : MessageLookupByLibrary.simpleMessage("Lucky Dog"),
+    "title" : MessageLookupByLibrary.simpleMessage("Happy Dog"),
     "toys" : MessageLookupByLibrary.simpleMessage("Toys"),
     "train" : MessageLookupByLibrary.simpleMessage("Trainning"),
     "training" : MessageLookupByLibrary.simpleMessage("Training"),

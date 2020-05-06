@@ -61,7 +61,7 @@ class _SettingsState extends State<Settings> {
         child: Scaffold(
             backgroundColor: Colors.black38,
             appBar: PreferredSize(
-                child: HeaderBar(S.of(context).settings, true, false, null),
+                child: HeaderBar(S.of(context).settings, true, null, null),
                 preferredSize: Size(double.infinity, kToolbarHeight)),
             body: Container(
               child: Column(

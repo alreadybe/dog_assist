@@ -208,7 +208,7 @@ class _BuyListState extends State<BuyList> {
         child: Scaffold(
           backgroundColor: Colors.black38,
           appBar: PreferredSize(
-              child: HeaderBar(S.of(context).purchases, true, false, null),
+              child: HeaderBar(S.of(context).purchases, true, null, null),
               preferredSize: Size(double.infinity, kToolbarHeight)),
           body: Container(
               child: Column(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:DogAssistant/components/Calendar/AddEvent.dart';
 import 'package:DogAssistant/components/Calendar/Filter..dart';
 import 'package:flutter/material.dart';
@@ -53,9 +55,14 @@ class CalendarState extends State<Calendar> {
 
   getData() async {
     var fetchData = await readData('events') ?? [];
+    var formatMonth =
+        currentMonth.toString().length > 1 ? currentMonth : '0$currentMonth';
+    var formatDay =
+        selectedDay.toString().length > 1 ? selectedDay : '0$selectedDay';
+
     var todayEvents = fetchData
         .where((event) =>
-            event['date'] == '$currentYear-$currentMonth-$selectedDay')
+            event['date'] == '$currentYear-$formatMonth-$formatDay 01:00:00')
         .toList();
 
     setState(() {
@@ -127,10 +134,15 @@ class CalendarState extends State<Calendar> {
   addEvent() {
     if (eventName != null && eventName.length > 0 || filter != 'other') {
       String category = filter == 'other' ? eventName : filter;
+      var formatMonth =
+          currentMonth.toString().length > 1 ? currentMonth : '0$currentMonth';
+      var formatDay =
+          selectedDay.toString().length > 1 ? selectedDay : '0$selectedDay';
+
       var event = {
         "category": category,
         "note": eventNote,
-        "date": '$currentYear-$currentMonth-$selectedDay'
+        "date": '$currentYear-$formatMonth-$formatDay 01:00:00'
       };
 
       writeData(event, 'events');
@@ -162,6 +174,21 @@ class CalendarState extends State<Calendar> {
     getData();
   }
 
+  openFullCalendar() async {
+    var routes = await Navigator.pushNamed(context, '/fullyear');
+    Map selectedMonth = jsonDecode(jsonEncode(routes));
+    int sMonth = selectedMonth['month'];
+    int sYear = selectedMonth['year'];
+
+    var newDate = DateTime(sYear, sMonth, 1);
+    setState(() {
+      currentMonth = newDate.month;
+      currentYear = newDate.year;
+    });
+    getMonthData(newDate);
+    selectDay(selectedDay.toString());
+  }
+
   @override
   void initState() {
     getData();
@@ -188,7 +215,8 @@ class CalendarState extends State<Calendar> {
         child: Scaffold(
           backgroundColor: Colors.black38,
           appBar: PreferredSize(
-              child: HeaderBar(S.of(context).calendar, true, false, null),
+              child: HeaderBar(
+                  S.of(context).calendar, true, 'calendar', openFullCalendar),
               preferredSize: Size(double.infinity, kToolbarHeight)),
           body: Stack(children: <Widget>[
             Container(
@@ -384,7 +412,7 @@ Container _noteItem(category, note, context) {
     case 'mating':
       name = S.of(context).mating;
       break;
-    case 'other':
+    default:
       name = category;
       break;
   }

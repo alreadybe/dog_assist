@@ -4,16 +4,16 @@ import 'package:google_fonts/google_fonts.dart';
 class HeaderBar extends StatelessWidget {
   final String routeTitle;
   final bool needBack;
-  final bool settings;
+  final String action;
   final onPress;
 
-  HeaderBar(this.routeTitle, this.needBack, this.settings, this.onPress);
+  HeaderBar(this.routeTitle, this.needBack, this.action, this.onPress);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: Leading(needBack),
-      actions: <Widget>[Actions(settings, onPress)],
+      actions: <Widget>[Actions(action, onPress)],
       title: Text(routeTitle,
           style: GoogleFonts.poiretOne(
               textStyle: TextStyle(
@@ -39,7 +39,7 @@ class Leading extends StatelessWidget {
         color: Colors.white,
         onPressed: () {
           needBack
-              ? Navigator.pop(context, 'refresh')
+              ? Navigator.pop(context, true)
               : Navigator.pushNamed(context, '/profile');
         });
   }
@@ -58,14 +58,14 @@ class Actions extends StatefulWidget {
 }
 
 class _ActionsState extends State<Actions> {
-  final settings;
+  final action;
   final onPress;
 
-  _ActionsState(this.settings, this.onPress);
+  _ActionsState(this.action, this.onPress);
 
   @override
   Widget build(BuildContext context) {
-    return settings
+    return action == 'setting'
         ? Container(
             child: IconButton(
             icon: Icon(Icons.settings),
@@ -73,6 +73,19 @@ class _ActionsState extends State<Actions> {
               onPress();
             },
           ))
-        : SizedBox();
+        : _actionButton(action, context, onPress);
   }
+}
+
+Container _actionButton(action, context, onPress) {
+  return action == 'calendar'
+      ? Container(
+          child: IconButton(
+            icon: Icon(Icons.calendar_today),
+            onPressed: () {
+              onPress();
+            },
+          ),
+        )
+      : Container();
 }
