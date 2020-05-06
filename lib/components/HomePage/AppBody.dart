@@ -5,8 +5,9 @@ import '../../generated/l10n.dart';
 
 class AppBody extends StatelessWidget {
   final soonEvents;
+  final showNotif;
 
-  AppBody(this.soonEvents);
+  AppBody(this.soonEvents, this.showNotif);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class AppBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           soonEvents.length > 0
-              ? FeedBody(soonEvents)
+              ? FeedBody(soonEvents, showNotif)
               : Text('Dont have a evetns'),
         ],
       ),
@@ -25,8 +26,9 @@ class AppBody extends StatelessWidget {
 
 class FeedBody extends StatelessWidget {
   final events;
+  final showNotif;
 
-  FeedBody(this.events);
+  FeedBody(this.events, this.showNotif);
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +39,16 @@ class FeedBody extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           itemCount: events.length,
           itemBuilder: (context, int index) =>
-              CalendarFeedWidget(events[index])),
+              CalendarFeedWidget(events[index], showNotif)),
     );
   }
 }
 
 class CalendarFeedWidget extends StatelessWidget {
   final event;
+  final showNotif;
 
-  CalendarFeedWidget(this.event);
+  CalendarFeedWidget(this.event, this.showNotif);
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +112,15 @@ class CalendarFeedWidget extends StatelessWidget {
               ),
             ),
             Container(
-              child: Icon(
-                Icons.notifications,
-                size: 34,
-                color: Colors.orange,
+              child: IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  size: 28,
+                  color: Colors.orangeAccent,
+                ),
+                onPressed: () {
+                  showNotif(eventName, eventNote, event["date"]);
+                },
               ),
             ),
           ],

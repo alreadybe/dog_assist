@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -62,6 +63,8 @@ class _HomeState extends State<Home> {
   String refresh;
   String currentLocale;
 
+  FlutterLocalNotificationsPlugin notificationPlugin;
+
   String defaulLocal = Intl.getCurrentLocale();
 
   var soonEvents = [];
@@ -84,14 +87,66 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Future onSelectNotifications(String payload) async {
+    Navigator.pushNamed(context, '/');
+  }
+
+  Future showNotification(title, desc, date) async {
+    await notificationPlugin.pendingNotificationRequests();
+
+    var sheduledTimeOfDay = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: Colors.orangeAccent,
+              accentColor: Colors.orange,
+              colorScheme: ColorScheme.light(primary: Colors.orange),
+              buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            ),
+            child: child,
+          );
+        });
+
+    DateTime sheduledTime = DateTime.parse(date)
+        .subtract(Duration(hours: 1))
+        .add(Duration(
+            hours: sheduledTimeOfDay.hour, minutes: sheduledTimeOfDay.minute));
+
+    print(sheduledTime);
+
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'channel_id', 'channed_name', 'channel_description',
+        importance: Importance.High, priority: Priority.High);
+
+    var iosPlatformChannelSpecifics = new IOSNotificationDetails();
+
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iosPlatformChannelSpecifics);
+
+    await notificationPlugin.schedule(DateTime.now().millisecond, title, desc,
+        sheduledTime, platformChannelSpecifics);
+  }
+
   @override
   void initState() {
     loading = true;
-    getLocale();
 
+    getLocale();
     getData();
 
     super.initState();
+
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+
+    notificationPlugin = new FlutterLocalNotificationsPlugin();
+    notificationPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotifications);
   }
 
   _getLangFromSettings(BuildContext context) async {
@@ -147,7 +202,7 @@ class _HomeState extends State<Home> {
                     _getLangFromSettings(context);
                   }),
                   preferredSize: Size(double.infinity, kToolbarHeight)),
-              body: AppBody(soonEvents),
+              body: AppBody(soonEvents, showNotification),
               bottomNavigationBar: BottomBar(goToPage),
             ),
     );
