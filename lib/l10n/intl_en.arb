@@ -25,5 +25,9 @@
     "enterEventName": "Event name",
     "enterEventNote": "Event description",
     "emptyNotes": "No notes for today",
+    "noEvents": "No upcoming events",
+    "weigth": "Weigth",
+    "heigth": "Heigth",
+    "temperature": "Temperature",
     "test": "Feed dog at 14:30"
 }

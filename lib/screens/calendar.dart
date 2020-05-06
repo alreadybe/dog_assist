@@ -49,6 +49,10 @@ class CalendarState extends State<Calendar> {
   var eventName;
   var eventNote;
 
+  var weigth;
+  var heigth;
+  var temperature;
+
   var daysInMonth;
   var days;
   var step;
@@ -139,11 +143,21 @@ class CalendarState extends State<Calendar> {
       var formatDay =
           selectedDay.toString().length > 1 ? selectedDay : '0$selectedDay';
 
-      var event = {
-        "category": category,
-        "note": eventNote,
-        "date": '$currentYear-$formatMonth-$formatDay 01:00:00'
-      };
+      var event = category == 'measuring'
+          ? {
+              "category": category,
+              "note":
+                  "${S.of(context).weigth} - $weigth, ${S.of(context).heigth} - $heigth, ${S.of(context).temperature} - $temperature ",
+              "date": '$currentYear-$formatMonth-$formatDay 01:00:00',
+              "weigth": weigth,
+              "heigth": heigth,
+              "temperature": temperature,
+            }
+          : {
+              "category": category,
+              "note": eventNote,
+              "date": '$currentYear-$formatMonth-$formatDay 01:00:00'
+            };
 
       writeData(event, 'events');
 

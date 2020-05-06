@@ -261,6 +261,42 @@ class S {
     );
   }
 
+  String get noEvents {
+    return Intl.message(
+      'No upcoming events',
+      name: 'noEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get weigth {
+    return Intl.message(
+      'Weigth',
+      name: 'weigth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get heigth {
+    return Intl.message(
+      'Heigth',
+      name: 'heigth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get temperature {
+    return Intl.message(
+      'Temperature',
+      name: 'temperature',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get test {
     return Intl.message(
       'Feed dog at 14:30',

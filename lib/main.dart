@@ -151,10 +151,7 @@ class _HomeState extends State<Home> {
 
   _getLangFromSettings(BuildContext context) async {
     final lang = await Navigator.pushNamed(context, '/settings');
-
-    setState(() {
-      refresh = lang;
-    });
+    if (lang) getData();
   }
 
   goToPage(context, path) async {

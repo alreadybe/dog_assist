@@ -25,11 +25,17 @@ class _AddEventState extends State<AddEvent> {
 
   TextEditingController _controllerName;
   TextEditingController _controllerNote;
+  TextEditingController _controllerWeigth;
+  TextEditingController _controllerHeigth;
+  TextEditingController _controllerTemperature;
 
   @override
   void initState() {
     _controllerName = TextEditingController();
     _controllerNote = TextEditingController();
+    _controllerWeigth = TextEditingController();
+    _controllerHeigth = TextEditingController();
+    _controllerTemperature = TextEditingController();
 
     super.initState();
   }
@@ -37,6 +43,9 @@ class _AddEventState extends State<AddEvent> {
   void dispose() {
     _controllerName.dispose();
     _controllerNote.dispose();
+    _controllerWeigth.dispose();
+    _controllerHeigth.dispose();
+    _controllerTemperature.dispose();
     super.dispose();
   }
 
@@ -89,9 +98,7 @@ class _AddEventState extends State<AddEvent> {
                                       textStyle: TextStyle(
                                           color: Colors.black54,
                                           fontSize: 18,
-                                          fontWeight: FontWeight
-                                              .w200)) //S.of(contex).enterEventName,
-                                  ),
+                                          fontWeight: FontWeight.w200))),
                               controller: _controllerName,
                               onChanged: (String value) async {
                                 this.parent.setState(() {
@@ -129,40 +136,134 @@ class _AddEventState extends State<AddEvent> {
                 ],
               ),
             ),
-            Container(
-              width: 350,
-              height: 165,
-              margin: EdgeInsets.only(top: 40),
-              child: TextField(
-                  expands: true,
-                  cursorWidth: 2,
-                  cursorColor: Colors.black54,
-                  style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400)),
-                  decoration: InputDecoration(
-                      fillColor: Colors.orangeAccent,
-                      filled: true,
-                      border: InputBorder.none,
-                      hintText: S.of(context).enterEventNote,
-                      hintStyle: GoogleFonts.rubik(
-                          textStyle: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 18,
-                              fontWeight: FontWeight
-                                  .w400)) //S.of(contex).enterEventName,
+            this.parent.filter == 'measuring'
+                ? Column(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 10, bottom: 20, top: 20),
+                        width: 170,
+                        child: TextField(
+                            keyboardType: TextInputType.number,
+                            cursorWidth: 2,
+                            cursorColor: Colors.black54,
+                            style: GoogleFonts.rubik(
+                                textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400)),
+                            decoration: InputDecoration(
+                                fillColor: Colors.orangeAccent,
+                                filled: true,
+                                border: InputBorder.none,
+                                hintText: S.of(context).weigth,
+                                hintStyle: GoogleFonts.rubik(
+                                    textStyle: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200))),
+                            controller: _controllerWeigth,
+                            onChanged: (String value) async {
+                              this.parent.setState(() {
+                                this.parent.weigth = value;
+                              });
+                            }),
                       ),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  controller: _controllerNote,
-                  onChanged: (String value) async {
-                    this.parent.setState(() {
-                      this.parent.eventNote = value;
-                    });
-                  }),
-            ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10, bottom: 20),
+                        width: 170,
+                        child: TextField(
+                            keyboardType: TextInputType.number,
+                            cursorWidth: 2,
+                            cursorColor: Colors.black54,
+                            style: GoogleFonts.rubik(
+                                textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400)),
+                            decoration: InputDecoration(
+                                fillColor: Colors.orangeAccent,
+                                filled: true,
+                                border: InputBorder.none,
+                                hintText: S.of(context).heigth,
+                                hintStyle: GoogleFonts.rubik(
+                                    textStyle: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight
+                                            .w200)) //S.of(contex).enterEventName,
+                                ),
+                            controller: _controllerHeigth,
+                            onChanged: (String value) async {
+                              this.parent.setState(() {
+                                this.parent.heigth = value;
+                              });
+                            }),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        width: 170,
+                        child: TextField(
+                            keyboardType: TextInputType.number,
+                            cursorWidth: 2,
+                            cursorColor: Colors.black54,
+                            style: GoogleFonts.rubik(
+                                textStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400)),
+                            decoration: InputDecoration(
+                                fillColor: Colors.orangeAccent,
+                                filled: true,
+                                border: InputBorder.none,
+                                hintText: S.of(context).temperature,
+                                hintStyle: GoogleFonts.rubik(
+                                    textStyle: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w200))),
+                            controller: _controllerTemperature,
+                            onChanged: (String value) async {
+                              this.parent.setState(() {
+                                this.parent.temperature = value;
+                              });
+                            }),
+                      )
+                    ],
+                  )
+                : Container(
+                    width: 350,
+                    height: 165,
+                    margin: EdgeInsets.only(top: 40),
+                    child: TextField(
+                        expands: true,
+                        cursorWidth: 2,
+                        cursorColor: Colors.black54,
+                        style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400)),
+                        decoration: InputDecoration(
+                            fillColor: Colors.orangeAccent,
+                            filled: true,
+                            border: InputBorder.none,
+                            hintText: S.of(context).enterEventNote,
+                            hintStyle: GoogleFonts.rubik(
+                                textStyle: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight
+                                        .w400)) //S.of(contex).enterEventName,
+                            ),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        controller: _controllerNote,
+                        onChanged: (String value) async {
+                          this.parent.setState(() {
+                            this.parent.eventNote = value;
+                          });
+                        }),
+                  ),
           ],
         ),
       ),

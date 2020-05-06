@@ -31,9 +31,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterEventNote" : MessageLookupByLibrary.simpleMessage("Event description"),
     "fight" : MessageLookupByLibrary.simpleMessage("Fight"),
     "health" : MessageLookupByLibrary.simpleMessage("Health"),
+    "heigth" : MessageLookupByLibrary.simpleMessage("Heigth"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Hygiene"),
     "mating" : MessageLookupByLibrary.simpleMessage("Mating"),
     "measuring" : MessageLookupByLibrary.simpleMessage("Measuring"),
+    "noEvents" : MessageLookupByLibrary.simpleMessage("No upcoming events"),
     "notes" : MessageLookupByLibrary.simpleMessage("Notes"),
     "other" : MessageLookupByLibrary.simpleMessage("Other"),
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
@@ -42,11 +44,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "setBack" : MessageLookupByLibrary.simpleMessage("Set background image"),
     "settings" : MessageLookupByLibrary.simpleMessage("Setting"),
     "statistics" : MessageLookupByLibrary.simpleMessage("Statistic"),
+    "temperature" : MessageLookupByLibrary.simpleMessage("Temperature"),
     "test" : MessageLookupByLibrary.simpleMessage("Feed dog at 14:30"),
     "title" : MessageLookupByLibrary.simpleMessage("Happy Dog"),
     "toys" : MessageLookupByLibrary.simpleMessage("Toys"),
     "train" : MessageLookupByLibrary.simpleMessage("Trainning"),
     "training" : MessageLookupByLibrary.simpleMessage("Training"),
-    "vet" : MessageLookupByLibrary.simpleMessage("Vet")
+    "vet" : MessageLookupByLibrary.simpleMessage("Vet"),
+    "weigth" : MessageLookupByLibrary.simpleMessage("Weigth")
   };
 }

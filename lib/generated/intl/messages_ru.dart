@@ -31,9 +31,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterEventNote" : MessageLookupByLibrary.simpleMessage("Описание события"),
     "fight" : MessageLookupByLibrary.simpleMessage("Драка"),
     "health" : MessageLookupByLibrary.simpleMessage("Здоровье"),
+    "heigth" : MessageLookupByLibrary.simpleMessage("Рост"),
     "hygiene" : MessageLookupByLibrary.simpleMessage("Гигиена"),
     "mating" : MessageLookupByLibrary.simpleMessage("Вязка"),
     "measuring" : MessageLookupByLibrary.simpleMessage("Измерения"),
+    "noEvents" : MessageLookupByLibrary.simpleMessage("Нет ближайших событий"),
     "notes" : MessageLookupByLibrary.simpleMessage("Заметки"),
     "other" : MessageLookupByLibrary.simpleMessage("Остальное"),
     "profile" : MessageLookupByLibrary.simpleMessage("Профиль"),
@@ -42,11 +44,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "setBack" : MessageLookupByLibrary.simpleMessage("Установить фон"),
     "settings" : MessageLookupByLibrary.simpleMessage("Настройки"),
     "statistics" : MessageLookupByLibrary.simpleMessage("Статистика"),
+    "temperature" : MessageLookupByLibrary.simpleMessage("Температура"),
     "test" : MessageLookupByLibrary.simpleMessage("Покормить собаку в 14:30"),
     "title" : MessageLookupByLibrary.simpleMessage("Happy Dog"),
     "toys" : MessageLookupByLibrary.simpleMessage("Игрушки"),
     "train" : MessageLookupByLibrary.simpleMessage("Тренировки"),
     "training" : MessageLookupByLibrary.simpleMessage("Тренировки"),
-    "vet" : MessageLookupByLibrary.simpleMessage("Ветеринар")
+    "vet" : MessageLookupByLibrary.simpleMessage("Ветеринар"),
+    "weigth" : MessageLookupByLibrary.simpleMessage("Вес")
   };
 }

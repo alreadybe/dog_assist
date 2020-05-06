@@ -17,7 +17,20 @@ class AppBody extends StatelessWidget {
         children: <Widget>[
           soonEvents.length > 0
               ? FeedBody(soonEvents, showNotif)
-              : Text('Dont have a evetns'),
+              : Container(
+                  alignment: Alignment.center,
+                  width: 390,
+                  height: 60,
+                  color: Colors.black54,
+                  margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+                  padding: EdgeInsets.all(10),
+                  child: Text(S.of(context).noEvents,
+                      style: GoogleFonts.rubik(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w200))),
+                ),
         ],
       ),
     );
@@ -115,7 +128,7 @@ class CalendarFeedWidget extends StatelessWidget {
               child: IconButton(
                 icon: Icon(
                   Icons.notifications,
-                  size: 28,
+                  size: 22,
                   color: Colors.orangeAccent,
                 ),
                 onPressed: () {
