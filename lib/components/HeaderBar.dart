@@ -63,29 +63,46 @@ class _ActionsState extends State<Actions> {
 
   _ActionsState(this.action, this.onPress);
 
-  @override
-  Widget build(BuildContext context) {
-    return action == 'setting'
-        ? Container(
+  Widget _actionButton() {
+    switch (action) {
+      case 'setting':
+        return Container(
             child: IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              onPress();
-            },
-          ))
-        : _actionButton(action, context, onPress);
-  }
-}
-
-Container _actionButton(action, context, onPress) {
-  return action == 'calendar'
-      ? Container(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            onPress();
+          },
+        ));
+        break;
+      case 'calendar':
+        return Container(
           child: IconButton(
             icon: Icon(Icons.calendar_today),
             onPressed: () {
               onPress();
             },
           ),
-        )
-      : Container();
+        );
+        break;
+      case 'editProfile':
+        return Container(
+          child: IconButton(
+            icon: Icon(Icons.edit),
+            iconSize: 28,
+            onPressed: () {
+              onPress();
+            },
+          ),
+        );
+        break;
+      default:
+        return Container();
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _actionButton();
+  }
 }

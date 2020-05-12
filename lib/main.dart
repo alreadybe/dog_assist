@@ -4,10 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
-import 'generated/l10n.dart';
+import './generated/l10n.dart';
 import './utils/localstore.dart';
 
-import 'components/HeaderBar.dart';
+import './components/HeaderBar.dart';
 
 import './components/HomePage/AppBody.dart';
 import './components/HomePage/BottomBar.dart';
@@ -20,6 +20,7 @@ import './screens/training.dart';
 import './screens/statistics.dart';
 import './screens/settings.dart';
 import './screens/fullYearCalendar.dart';
+import './screens/profileEdit.dart';
 
 void main() {
   runApp(HomePage());
@@ -39,6 +40,7 @@ class HomePage extends StatelessWidget {
           '/statistics': (context) => Statistics(),
           '/settings': (context) => Settings(),
           '/fullyear': (context) => FullYearCalendar(),
+          '/editprofile': (context) => ProfileEdit(),
         },
         localizationsDelegates: [
           S.delegate,

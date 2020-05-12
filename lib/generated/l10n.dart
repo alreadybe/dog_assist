@@ -297,10 +297,109 @@ class S {
     );
   }
 
-  String get test {
+  String get edit {
     return Intl.message(
-      'Feed dog at 14:30',
-      name: 'test',
+      'Edit',
+      name: 'edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get achievements {
+    return Intl.message(
+      'Achievements',
+      name: 'achievements',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get camera {
+    return Intl.message(
+      'Camera',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get gallery {
+    return Intl.message(
+      'Gallery',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get setpic {
+    return Intl.message(
+      'Set profile picture',
+      name: 'setpic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get setname {
+    return Intl.message(
+      'Set dog name',
+      name: 'setname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get setage {
+    return Intl.message(
+      'Set the age of the',
+      name: 'setage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get setbreed {
+    return Intl.message(
+      'Set the dog breed',
+      name: 'setbreed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get selectsource {
+    return Intl.message(
+      'Select photo source',
+      name: 'selectsource',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get noachieve {
+    return Intl.message(
+      'No achievements',
+      name: 'noachieve',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get save {
+    return Intl.message(
+      'Save changes',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get apply {
+    return Intl.message(
+      'Apply',
+      name: 'apply',
       desc: '',
       args: [],
     );

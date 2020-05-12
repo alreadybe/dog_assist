@@ -29,5 +29,16 @@
     "weigth": "Weigth",
     "heigth": "Heigth",
     "temperature": "Temperature",
-    "test": "Feed dog at 14:30"
+    "edit": "Edit",
+    "achievements": "Achievements",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "setpic": "Set profile picture",
+    "setname": "Set dog name",
+    "setage": "Set the age of the",
+    "setbreed": "Set the dog breed",
+    "selectsource": "Select photo source",
+    "noachieve": "No achievements",
+    "save": "Save changes",
+    "apply": "Apply"
 }
