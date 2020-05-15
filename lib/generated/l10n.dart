@@ -404,6 +404,15 @@ class S {
       args: [],
     );
   }
+
+  String get enterNote {
+    return Intl.message(
+      'Enter note',
+      name: 'enterNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

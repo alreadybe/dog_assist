@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:DogAssistant/utils/localstore.dart';
@@ -25,6 +24,10 @@ class _ProfileEditState extends State<ProfileEdit> {
   File _image;
   File _sample;
 
+  String oldName;
+  String oldAge;
+  String oldBreed;
+
   Future<void> _openImage(source) async {
     final file = await ImagePicker.pickImage(source: source);
     final sample = await ImageCrop.sampleImage(
@@ -35,6 +38,19 @@ class _ProfileEditState extends State<ProfileEdit> {
     setState(() {
       _sample = sample;
       _image = file;
+    });
+  }
+
+  loadPetData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String profileName = prefs.getString('profileName') ?? null;
+    String profileAge = prefs.getString('profileAge') ?? null;
+    String profileBreed = prefs.getString('profileBreed') ?? null;
+
+    setState(() {
+      oldName = profileName;
+      oldAge = profileAge;
+      oldBreed = profileBreed;
     });
   }
 
@@ -140,6 +156,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   @override
   void initState() {
     loadProfilePic();
+    loadPetData();
 
     _controllerName = TextEditingController();
     _controllerAge = TextEditingController();
@@ -300,7 +317,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                       fillColor: Colors.white,
                       filled: true,
                       border: InputBorder.none,
-                      hintText: S.of(context).setname,
+                      hintText: oldName != null && oldName.length > 0
+                          ? oldName
+                          : S.of(context).setname,
                       hintStyle: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               color: Colors.black54,
@@ -326,7 +345,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                       fillColor: Colors.white,
                       filled: true,
                       border: InputBorder.none,
-                      hintText: S.of(context).setage,
+                      hintText: oldAge != null && oldAge.length > 0
+                          ? oldAge
+                          : S.of(context).setage,
                       hintStyle: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               color: Colors.black54,
@@ -352,7 +373,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                       fillColor: Colors.white,
                       filled: true,
                       border: InputBorder.none,
-                      hintText: S.of(context).setbreed,
+                      hintText: oldBreed != null && oldBreed.length > 0
+                          ? oldBreed
+                          : S.of(context).setbreed,
                       hintStyle: GoogleFonts.rubik(
                           textStyle: TextStyle(
                               color: Colors.black54,

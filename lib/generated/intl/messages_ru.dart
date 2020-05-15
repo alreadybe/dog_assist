@@ -33,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "en" : MessageLookupByLibrary.simpleMessage("English"),
     "enterEventName" : MessageLookupByLibrary.simpleMessage("Названия события"),
     "enterEventNote" : MessageLookupByLibrary.simpleMessage("Описание события"),
+    "enterNote" : MessageLookupByLibrary.simpleMessage("Введите заметку"),
     "fight" : MessageLookupByLibrary.simpleMessage("Драка"),
     "gallery" : MessageLookupByLibrary.simpleMessage("Галерея"),
     "health" : MessageLookupByLibrary.simpleMessage("Здоровье"),

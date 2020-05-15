@@ -40,5 +40,6 @@
     "selectsource": "Select photo source",
     "noachieve": "No achievements",
     "save": "Save changes",
-    "apply": "Apply"
+    "apply": "Apply",
+    "enterNote": "Enter note"
 }
