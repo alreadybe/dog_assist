@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mating" : MessageLookupByLibrary.simpleMessage("Mating"),
     "measuring" : MessageLookupByLibrary.simpleMessage("Measuring"),
     "noEvents" : MessageLookupByLibrary.simpleMessage("No upcoming events"),
+    "noNotes" : MessageLookupByLibrary.simpleMessage("No notes"),
     "noachieve" : MessageLookupByLibrary.simpleMessage("No achievements"),
     "notes" : MessageLookupByLibrary.simpleMessage("Notes"),
     "other" : MessageLookupByLibrary.simpleMessage("Other"),

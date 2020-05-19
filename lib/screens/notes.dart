@@ -2,6 +2,7 @@ import 'package:DogAssistant/utils/localstore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../generated/l10n.dart';
 
@@ -16,14 +17,14 @@ class Notes extends StatefulWidget {
 
 class _NotesState extends State<Notes> {
   var notes;
-  bool addOpen;
+  bool isOpen;
+  bool isEdit;
 
-  String noteToAdd;
+  String textNote;
+  String idEditNote;
 
   loadNotes() async {
     var data = await readData('notes') ?? [];
-
-    print(data);
 
     setState(() {
       notes = data;
@@ -31,33 +32,81 @@ class _NotesState extends State<Notes> {
   }
 
   _writeNote() async {
-    if (noteToAdd != null && noteToAdd.length > 0) {
+    if (textNote != null && textNote.length > 0) {
       var note = {
+        "id": DateTime.now().millisecondsSinceEpoch.toString(),
         "date": DateTime.now().toString(),
-        "note": noteToAdd,
+        "note": textNote,
       };
 
       await writeData(note, 'notes');
+      setState(() {
+        isOpen = false;
+        textNote = null;
+      });
+      controllerNote.clear();
+
+      loadNotes();
     }
     return;
   }
 
-  TextEditingController _controllerNote;
+  _editExNote(id) async {
+    if (id == null) return;
+    if (textNote != null && textNote.length > 0) {
+      var note = {
+        'id': id,
+        "date": DateTime.now().toString(),
+        "note": textNote,
+      };
+
+      await editNotes(note, id);
+
+      setState(() {
+        isOpen = false;
+        isEdit = false;
+        idEditNote = null;
+
+        textNote = null;
+      });
+      controllerNote.clear();
+
+      loadNotes();
+    }
+    return;
+  }
+
+  _deleteExNote(id) async {
+    await deleteNotes(id);
+
+    setState(() {
+      idEditNote = null;
+      isOpen = false;
+    });
+    loadNotes();
+
+    return;
+  }
+
+  TextEditingController controllerNote;
 
   @override
   void initState() {
     loadNotes();
 
-    addOpen = false;
+    textNote = null;
 
-    _controllerNote = TextEditingController();
+    isOpen = false;
+    isEdit = false;
+
+    controllerNote = TextEditingController();
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _controllerNote.dispose();
+    controllerNote.dispose();
 
     super.dispose();
   }
@@ -71,12 +120,14 @@ class _NotesState extends State<Notes> {
         child: Scaffold(
           backgroundColor: Colors.black38,
           appBar: PreferredSize(
-              child: HeaderBar(S.of(context).notes, true, null, null),
+              child: isOpen
+                  ? _editNoteHeader()
+                  : HeaderBar(S.of(context).notes, true, null, null),
               preferredSize: Size(double.infinity, kToolbarHeight)),
           body: Container(
-            child: addOpen ? _addFields() : _notesBody(),
+            child: isOpen ? _editNote() : _allNotes(),
           ),
-          bottomNavigationBar: !addOpen
+          bottomNavigationBar: !isOpen
               ? Container(
                   child: _addButton(),
                 )
@@ -84,22 +135,100 @@ class _NotesState extends State<Notes> {
         ));
   }
 
-  Widget _notesBody() {
-    return Container(
-        child: notes != null && notes.length > 0
-            ? ListView.builder(
-                itemBuilder: (context, int index) =>
-                    _noteItem(notes[index]["note"]))
-            : Text('No notes'));
-  }
-
-  Widget _noteItem(note) {
-    return Container(
-      child: Text(note),
+  Widget _editNoteHeader() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          setState(() {
+            isOpen = false;
+            idEditNote = null;
+            textNote = null;
+          });
+          controllerNote.clear();
+        },
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.delete),
+          iconSize: 28,
+          onPressed: () {
+            _deleteExNote(idEditNote);
+          },
+        ),
+        IconButton(
+            icon: Icon(Icons.done),
+            iconSize: 32,
+            onPressed: () {
+              isEdit ? _editExNote(idEditNote) : _writeNote();
+            })
+      ],
+      backgroundColor: Colors.transparent,
+      elevation: 1,
     );
   }
 
-  Widget _addFields() {
+  Widget _allNotes() {
+    return Container(
+        child: notes != null && notes.length > 0
+            ? GridView.count(
+                physics: BouncingScrollPhysics(),
+                crossAxisCount: 2,
+                children: List.generate(notes.length, (index) {
+                  return _noteItem(notes[index]);
+                }))
+            : Center(
+                child: Text(S.of(context).noNotes,
+                    style: GoogleFonts.rubik(
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400)))));
+  }
+
+  Widget _noteItem(note) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          textNote = note['note'];
+          controllerNote.text = textNote;
+          idEditNote = note['id'].toString();
+          isEdit = true;
+          isOpen = true;
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 20, bottom: 5, left: 10, right: 10),
+        padding: EdgeInsets.all(15),
+        decoration: BoxDecoration(color: Color(0xFF232323)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 120,
+              child: Text(note["note"],
+                  style: GoogleFonts.rubik(
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400))),
+            ),
+            Text(
+                DateFormat.yMMMMEEEEd()
+                    .format(DateTime.parse(note['date']))
+                    .toString(),
+                style: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w200))),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _editNote() {
     return Container(
       margin: EdgeInsets.all(20),
       child: TextField(
@@ -125,10 +254,10 @@ class _NotesState extends State<Notes> {
               ),
           keyboardType: TextInputType.multiline,
           maxLines: null,
-          controller: _controllerNote,
+          controller: controllerNote,
           onChanged: (String value) async {
             setState(() {
-              noteToAdd = value;
+              textNote = value;
             });
           }),
     );
@@ -143,7 +272,7 @@ class _NotesState extends State<Notes> {
             icon: Icon(Icons.add_circle),
             onPressed: () {
               setState(() {
-                addOpen = true;
+                isOpen = true;
               });
             }));
   }

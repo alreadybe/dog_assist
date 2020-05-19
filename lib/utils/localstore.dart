@@ -40,7 +40,33 @@ readProfileImageAsBase64String() async {
 writeData(data, entity) async {
   final file = await _localFile(entity);
   var currentData = jsonDecode(await file.readAsString());
-  currentData.add(data);
+  var exstId = await currentData.removeWhere((el) => el['id'] == data['id']);
+  if (exstId == null) currentData.add(data);
+  return await file.writeAsString(jsonEncode(currentData));
+}
+
+editNotes(data, id) async {
+  print('id: $id');
+  final file = await _localFile('notes');
+  var currentData = jsonDecode(await file.readAsString());
+  print('data length: ${currentData.length}');
+  if (currentData.length < 2) {
+    currentData = [];
+  } else {
+    await currentData.removeWhere((el) => el['id'].toString() == id.toString());
+  }
+  var exstId = await currentData
+      .removeWhere((el) => el['id'].toString() == data['id'].toString());
+  print('exstId: $exstId');
+
+  if (exstId == null) currentData.add(data);
+  return await file.writeAsString(jsonEncode(currentData));
+}
+
+deleteNotes(id) async {
+  final file = await _localFile('notes');
+  var currentData = jsonDecode(await file.readAsString());
+  await currentData.removeWhere((el) => el['id'].toString() == id.toString());
   return await file.writeAsString(jsonEncode(currentData));
 }
 

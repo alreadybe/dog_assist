@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "mating" : MessageLookupByLibrary.simpleMessage("Вязка"),
     "measuring" : MessageLookupByLibrary.simpleMessage("Измерения"),
     "noEvents" : MessageLookupByLibrary.simpleMessage("Нет ближайших событий"),
+    "noNotes" : MessageLookupByLibrary.simpleMessage("Заметок нет"),
     "noachieve" : MessageLookupByLibrary.simpleMessage("Достижений нет"),
     "notes" : MessageLookupByLibrary.simpleMessage("Заметки"),
     "other" : MessageLookupByLibrary.simpleMessage("Остальное"),

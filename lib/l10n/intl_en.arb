@@ -41,5 +41,6 @@
     "noachieve": "No achievements",
     "save": "Save changes",
     "apply": "Apply",
-    "enterNote": "Enter note"
+    "enterNote": "Enter note",
+    "noNotes": "No notes"
 }
